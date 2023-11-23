@@ -71,3 +71,5 @@ for offset in range(0, total_data_count, limit):
 가져올때 tag_type_ids(분야), years(경력), offset등 바꿔줄수 있도록 변경했고 가져올 정보도 info_keys로 해놨습니다.
 전체 데이터 양을 모르겠어서 일단 total_data_count를 10000으로 해놓긴했는데 100개불러오는데 1분정도 걸리는거 같습니다.
 
+-> 4863번째에서 스크린샷과 같이 오류가나왔는데 4863번 이후가 none이여서 안가져와지면 전체 데이터양이
+4863개이겠지요 ?!?
