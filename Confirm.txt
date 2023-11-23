@@ -61,10 +61,10 @@ for offset in range(0, total_data_count, limit):
         detail_url = f"{base_url}{recur_id}?{timestamp}"
         job_data = requests.get(detail_url).json()
 
-        info_keys = ['company', 'intro']  # 필요한 정보 키
+        info_keys = ['company', 'title','intro', 'location', 'main_job','require', 'prefer_points', 'benefits','deadline', 'geo_location']  # 필요한 정보 키
         crawled_data = crawling_wanted_data(job_data, info_keys)
-
-        print(crawled_data)
+        
+        print(json.dumps(crawled_data, indent=4, ensure_ascii=False))
 
 
 
