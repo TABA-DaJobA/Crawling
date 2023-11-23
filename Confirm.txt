@@ -1,0 +1,73 @@
+# 원티드 크롤링
+import requests
+import datetime
+
+def crawling_wanted_data(parsed_data, info_keys):
+    result={}
+    for key in info_keys:
+        if key == 'company':   # 회사 이름
+            result['company'] = parsed_data['job']['company']['name']  
+        elif key == 'intro':   # 회사 소개
+            result['intro'] = parsed_data['job']['detail']['intro'] 
+        elif key == 'location':  # 근무 지역
+            result['location'] = parsed_data['job']['address']['full_location'] 
+        elif key == 'title':  # 제목
+            result['title'] = parsed_data['job']['position']
+        elif key == 'main_job': # 주요업무
+            result['main_job'] = parsed_data['job']['detail']['main_tasks']
+        elif key == 'require':  # 자격요건
+            result['require'] = parsed_data['job']['detail']['requirements']
+        elif key == 'prefer_point':  # 우대사항
+            result['prefer_point'] = parsed_data['job']['detail']['preferred_points']
+        elif key == 'benefits':  # 혜택 및 복지
+            result['benefits'] = parsed_data['job']['detail']['benefits']
+        elif key == 'deadline':  # 마감날짜 None = 상시
+            result['deadline'] = parsed_data['job']['due_time']
+        elif key == 'geo_location': # 근무지역 (위도,경도)
+            geo_location = parsed_data['job']['address'].get('geo_location')
+            if geo_location:
+                result['lat'] = geo_location['n_location']['lat']
+                result['lng'] = geo_location['n_location']['lng']
+            else:
+                result['lat'] = None
+                result['lng'] = None
+    return result
+
+parsed_data = []
+
+timestamp = int(datetime.datetime.now().timestamp())
+tag_type_ids = 518
+years = -1
+limit = 100
+offset = 0
+# tag_type_ids: 518 개발/ 507 경영-비즈니스 /523 마케팅 /511 디자인 /530 영업 /510 고객서비스-리테일 /524 미디어 /513 엔지니어링-설계
+# 517 HR /959 게임 제작 /508 금융 /522 제조-생산 /515 의료-제약-바이오 /10101 교육 /532 물류-무역 /10057 식-음료 /521 법률-법집행기관 /509 건설-시설 /514 공공-복지
+# limit -> 100이면 100개씩 데이터추출 (한번에 100밖에 불가)
+# offset -> 0번째부터 추출
+
+# 10000개 데이터 가져오기 
+total_data_count = 10000
+
+base_url = "https://www.wanted.co.kr/api/v4/jobs/"
+for offset in range(0, total_data_count, limit):
+    
+    url = "https://www.wanted.co.kr/api/v4/jobs?{}&country=kr&tag_type_ids={}&job_sort=job.latest_order&locations=all&years={}&limit={}&offset={}".format(timestamp, tag_type_ids, years, limit, offset)
+    parse_company = requests.get(url).json()
+    
+    recur_ids = [temp['id'] for temp in parse_company['data']]
+    
+
+    for recur_id in recur_ids:
+        detail_url = f"{base_url}{recur_id}?{timestamp}"
+        job_data = requests.get(detail_url).json()
+
+        info_keys = ['company', 'intro']  # 필요한 정보 키
+        crawled_data = crawling_wanted_data(job_data, info_keys)
+
+        print(crawled_data)
+
+
+
+가져올때 tag_type_ids(분야), years(경력), offset등 바꿔줄수 있도록 변경했고 가져올 정보도 info_keys로 해놨습니다.
+전체 데이터 양을 모르겠어서 일단 total_data_count를 10000으로 해놓긴했는데 100개불러오는데 1분정도 걸리는거 같습니다.
+
