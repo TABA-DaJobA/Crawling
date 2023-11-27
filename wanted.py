@@ -6,35 +6,39 @@ import json
 def crawling_wanted_data(parsed_data, info_keys):
     result={}
     for key in info_keys:
-        if key == 'company':   # 회사 이름
-            result['company'] = parsed_data['job']['company']['name']  
-        elif key == 'intro':   # 회사 소개
-            result['intro'] = parsed_data['job']['detail']['intro'] 
-        elif key == 'location':  # 근무 지역
-            result['location'] = parsed_data['job']['address']['full_location'] 
-        elif key == 'title':  # 제목
-            result['title'] = parsed_data['job']['position']
-        elif key == 'main_job': # 주요업무
-            result['main_job'] = parsed_data['job']['detail']['main_tasks']
-        elif key == 'require':  # 자격요건
-            result['require'] = parsed_data['job']['detail']['requirements']
-        elif key == 'prefer_point':  # 우대사항
-            result['prefer_point'] = parsed_data['job']['detail']['preferred_points']
-        elif key == 'benefits':  # 혜택 및 복지
-            result['benefits'] = parsed_data['job']['detail']['benefits']
-        elif key == 'deadline':  # 마감날짜 None = 상시
-            result['deadline'] = parsed_data['job']['due_time']
+        if key == 'COMPANY':   # 회사 이름
+            result['COMPANY'] = parsed_data['job']['company']['name']  
+        elif key == 'GROUP_INTRO':   # 회사 소개
+            result['GROUP_INTRO'] = parsed_data['job']['detail']['intro'] 
+        elif key == 'WORKING_AREA':  # 근무 지역
+            result['WORKING_AREA'] = parsed_data['job']['address']['full_location'] 
+        elif key == 'TITLE':  # 제목
+            result['TITLE'] = parsed_data['job']['position']
+        elif key == 'MAINDUTIES': # 주요업무
+            result['MAINDUTIES'] = parsed_data['job']['detail']['main_tasks']
+        elif key == 'QUALIFICATION':  # 자격요건
+            result['QUALIFICATION'] = parsed_data['job']['detail']['requirements']
+        elif key == 'PREFERENTIAL':  # 우대사항
+            result['PREFERENTIAL'] = parsed_data['job']['detail']['preferred_points']
+        elif key == 'BENEFITS':  # 혜택 및 복지
+            result['BENEFITS'] = parsed_data['job']['detail']['benefits']
+        elif key == 'RECRUIT_DEADLINE':  # 마감날짜 None = 상시
+            result['RECRUIT_DEADLINE'] = parsed_data['job']['due_time']
         elif key == 'geo_location': # 근무지역 (위도,경도)
             geo_location = parsed_data['job']['address'].get('geo_location')
             if geo_location:
-                result['lat'] = geo_location['n_location']['lat']
-                result['lng'] = geo_location['n_location']['lng']
+                result['LAT'] = geo_location['n_location']['lat']
+                result['LNG'] = geo_location['n_location']['lng']
             else:
-                result['lat'] = None
-                result['lng'] = None
-        elif key == 'url':
+                result['LAT'] = None
+                result['LNG'] = None
+        elif key == 'JOB_POSTING_URL':
             base = "https://www.wanted.co.kr/wd/"
-            result['url'] = f"{base}{parsed_data['job']['id']}"
+            result['JOB_POSTING_URL'] = f"{base}{parsed_data['job']['id']}"
+        elif key == 'TITLE_IMG':
+            result['TITLE_IMG'] = parsed_data['job']['title_img']['origin']
+        elif key == 'LOGO_IMG':
+            result['LOGO_IMG'] = parsed_data['job']['logo_img']['origin']
     return result
 
 parsed_data = []
@@ -65,7 +69,7 @@ for offset in range(0, total_data_count, limit):
         detail_url = f"{base_url}{recur_id}?{timestamp}"
         job_data = requests.get(detail_url).json()
 
-        info_keys = ['company', 'title','intro', 'location', 'main_job','require', 'prefer_points', 'benefits','deadline', 'geo_location','url']  # 필요한 정보 키
+        info_keys = ['COMPANY', 'TITLE','GROUP_INTRO', 'WORKING_AREA', 'MAINDUTIES','QUALIFICATION', 'PREFERENTIAL', 'BENEFITS','RECRUIT_DEADLINE', 'geo_location','JOB_POSTING_URL','TITLE_IMG','LOGO_IMG']  # 필요한 정보 키
         crawled_data = crawling_wanted_data(job_data, info_keys)
         
         print(json.dumps(crawled_data, indent=4, ensure_ascii=False))
