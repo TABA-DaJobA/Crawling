@@ -5,7 +5,7 @@ import json
 id_base_url = "https://api.jumpit.co.kr/api/positions?sort=rsp_rate&highlight=false&page="
 start_page = 1
 end_page = 1    # 한페이지당 데이터 16개정도
-
+ 
 # 저장할 데이터를 위한 리스트 초기화
 COMPANY = []              # 회사이름
 GROUP_INTRO = []          # 회사소개
