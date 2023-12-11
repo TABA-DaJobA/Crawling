@@ -1,7 +1,7 @@
 # Crawling
 
 
-# Wanted Crawling
+# Wanted
 ```
 {
         "COMPANY": "티맥스핀테크",
@@ -21,7 +21,7 @@
     }
 ```
 
-# Jumpit Crawling
+# Jumpit
 
 ```
 {
