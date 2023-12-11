@@ -1,7 +1,7 @@
 # Crawling
 
 
-원티드 크롤링(json) -> 예시 
+원티드 크롤링(json) (ex)
 ```
 {
         "COMPANY": "티맥스핀테크",
