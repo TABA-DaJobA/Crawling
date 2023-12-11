@@ -2,7 +2,7 @@
 import requests
 import datetime
 import json
-
+ 
 def crawling_wanted_data(parsed_data, info_keys):
     result={}
     for key in info_keys:
