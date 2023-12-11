@@ -1,7 +1,7 @@
 # Crawling
 
 
-# Wanted Crawling ex)
+# Wanted Crawling
 ```
 {
         "COMPANY": "티맥스핀테크",
