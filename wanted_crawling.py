@@ -170,7 +170,7 @@ with open(file_path, 'r', encoding='utf-8') as file:
 
 
 # 데이터베이스 연결
-db = pyodbc.connect('DSN=aws_test_t6; UID=DAJOBA; PWD=DAJOBA')
+db = pyodbc.connect('---------------------------')
 cursor = db.cursor()
     
 
