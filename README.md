@@ -2,6 +2,27 @@
 
 - 합격자소서 데이터로 학습한 AI를 통해 사용자의 개별 자소서를 분석하여 합격률이 높을 것으로 예상되는 채용공고를 선별해주는 사용자 맞춤형 채용플랫폼을 구축한다.
 
+
+# Saramin
+---
+```
+{
+        "BENEFITS":"면접후 결정",
+        "ID":49145930,
+        "end_date":"2024-10-22 23:59:59.000000",
+        "job_type":"REGULAR",
+        "open_date":"2024-10-07 14:00:00.000000",
+        "post_date":"2024-10-07 14:42:29.000000",
+        "COMPANY_URL":"http://www.bbp.co.kr",
+        "COMPANY":"(주)비비파트너스",
+        "JOB_POSTING_URL":"http://www.saramin.co.kr/zf_user/jobs/relay/view?rec_idx=49145930&utm_source=job-search-api&utm_medium=api&utm_campaign=saramin-job-search-api",
+        "TITLE":"[코스닥/비메모리 MCU] Automotive MCU 엔지니어",
+        "WORKING_AREA":"서울 강남구 논현로 507, 1109호",
+        "QUALIFICATION":"경력 3~10년",
+        "PREFERENTIAL":"대학교졸업(4년)이상"
+}
+```
+
 # Wanted
 ```
 {
